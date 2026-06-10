@@ -60,6 +60,13 @@ export const profile = {
   email: "adeshmukh843@gmail.com",
   phone: "+91 9309520482",
   available: true,
+  availabilityLabel: "Open to opportunities & freelance work",
+  // The hero sentence is split so the first clause can render in the accent color.
+  heroIntro: {
+    lead: "I build ",
+    highlight: "production-grade backend systems and developer tooling,",
+    rest: " engineered for real-world scale — with strong systems logic and carefully crafted interfaces.",
+  },
   summary: [
     "I'm a Software Development Engineer at Maxim AI, where I build scalable backend systems for LLM observability — parsing SQL across ClickHouse, PostgreSQL and MySQL, streaming synthetic-data pipelines, and designing distributed simulation architectures. I care about clean architecture, performance under real production constraints, and tools that make complex systems understandable.",
     "Previously I built NestJS property-management backends deployed for government use. I enjoy working across the stack — from Redis-backed real-time systems to large React state architectures — and I'm happiest turning a gnarly, ambiguous problem into something simple and reliable.",

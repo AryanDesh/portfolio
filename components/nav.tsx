@@ -2,60 +2,62 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 import { profile } from "@/lib/data";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "INDEX" },
+  { href: "/projects", label: "PROJECTS" },
+  { href: "/experience", label: "EXPERIENCE" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/contact", label: "CONTACT" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-        <Link
-          href="/"
-          className="font-mono text-sm font-semibold tracking-tight text-foreground"
-        >
-          {profile.name}
-          <span className="text-accent">.</span>
-        </Link>
+    <header className="hatch sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-[1760px] items-start justify-between gap-6 px-8 py-3">
+        {/* Left: availability */}
+        <div className="leading-tight">
+          <p className="text-[11px] text-subtle">Availability</p>
+          <p className="font-mono text-[11px] uppercase tracking-wide text-foreground sm:text-xs">
+            {profile.availabilityLabel}
+          </p>
+        </div>
 
-        <div className="flex items-center gap-1 sm:gap-2">
-          <ul className="flex items-center gap-1 text-[13px] sm:gap-2">
+        {/* Right: sitemap + theme */}
+        <div className="text-right leading-tight">
+          <p className="text-[11px] text-subtle">Sitemap</p>
+          <nav className="mt-0.5 flex flex-wrap items-center justify-end gap-x-1.5 font-mono text-[11px] uppercase tracking-wide sm:text-xs">
             {links.map((link) => {
               const active =
                 link.href === "/"
                   ? pathname === "/"
                   : pathname.startsWith(link.href);
               return (
-                <li key={link.href}>
+                <Fragment key={link.href}>
                   <Link
                     href={link.href}
                     aria-current={active ? "page" : undefined}
-                    className={`rounded-md px-2.5 py-1.5 transition-colors sm:px-3 ${
-                      active
-                        ? "text-accent"
-                        : "text-muted hover:text-foreground"
+                    className={`transition-colors ${
+                      active ? "text-accent" : "text-foreground hover:text-accent"
                     }`}
                   >
                     {link.label}
                   </Link>
-                </li>
+                  <span aria-hidden className="text-subtle">
+                    ,
+                  </span>
+                </Fragment>
               );
             })}
-          </ul>
-
-          <span aria-hidden className="mx-1 hidden h-4 w-px bg-border sm:block" />
-          <ThemeToggle />
+            <ThemeToggle />
+          </nav>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

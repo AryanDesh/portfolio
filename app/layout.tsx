@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Tinos } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/lib/data";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +10,13 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// Serif display face for the hero name — Tinos is metric-compatible with Times.
+const tinos = Tinos({
+  variable: "--font-tinos",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -43,13 +48,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${tinos.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body className="min-h-dvh bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

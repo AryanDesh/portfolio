@@ -6,14 +6,13 @@ import { SunIcon, MoonIcon } from "@/components/icons";
 type Theme = "light" | "dark";
 
 /**
- * Top-right theme switch. The initial theme is applied before paint by the
- * inline script in the root layout; this button just reads the current state,
- * flips the `.dark` class on <html>, and persists the choice to localStorage.
+ * Inline "THEME (icon)" control that lives in the sitemap row of the nav.
+ * Initial theme is applied before paint by the inline script in the root
+ * layout; this just flips the `.dark` class on <html> and persists the choice.
  */
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
 
-  // Sync state with whatever the no-flash script already applied.
   useEffect(() => {
     setTheme(
       document.documentElement.classList.contains("dark") ? "dark" : "light",
@@ -39,17 +38,17 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-subtle hover:text-foreground"
+      className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
     >
-      {/* Placeholder keeps layout stable until the theme is known (post-hydration). */}
-      {theme === null ? (
-        <span className="h-[18px] w-[18px]" />
-      ) : isDark ? (
-        <SunIcon />
-      ) : (
-        <MoonIcon />
-      )}
+      THEME
+      <span aria-hidden className="inline-flex h-3.5 w-3.5 items-center justify-center">
+        {/* Empty until mounted so SSR and first client render match. */}
+        {theme === null ? null : isDark ? (
+          <SunIcon className="h-3.5 w-3.5" />
+        ) : (
+          <MoonIcon className="h-3.5 w-3.5" />
+        )}
+      </span>
     </button>
   );
 }

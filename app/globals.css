@@ -14,22 +14,25 @@
   --background: #ffffff;
   --foreground: #18181b; /* zinc-900 */
   --surface: #fafafa; /* zinc-50  */
-  --border: #e4e4e7; /* zinc-200 */
+  --border: #d4d4d8; /* zinc-300 */
   --muted: #52525b; /* zinc-600 — secondary text */
   --subtle: #71717a; /* zinc-500 — tertiary text */
-  --accent: #059669; /* emerald-600 */
-  --grid-line: rgba(0, 0, 0, 0.06);
+  --accent: #d6411c; /* deep orange (readable on white) */
+  --hatch-line: rgba(0, 0, 0, 0.05);
+  /* Strong ease-out: lines extend fast, then decelerate to final length. */
+  --ease-line: cubic-bezier(0.16, 1, 0.3, 1);
+  --line-dur: 1.6s;
 }
 
 .dark {
   --background: #000000;
   --foreground: #ededed;
   --surface: #101013;
-  --border: #27272a; /* zinc-800 */
+  --border: #2a2a2e;
   --muted: #a1a1aa; /* zinc-400 */
   --subtle: #71717a; /* zinc-500 */
-  --accent: #34d399; /* emerald-400 */
-  --grid-line: rgba(255, 255, 255, 0.05);
+  --accent: #f1512e; /* vivid orange-red */
+  --hatch-line: rgba(255, 255, 255, 0.05);
 }
 
 @theme inline {
@@ -42,6 +45,7 @@
   --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-tinos), Georgia, "Times New Roman", serif;
 }
 
 html {
@@ -57,7 +61,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #000000;
+  color: #ffffff;
 }
 
 /* Smoothly cross-fade colors when the theme flips. */
@@ -70,12 +74,132 @@ body {
   }
 }
 
-/* Subtle dotted grid behind the hero, faded out with a radial mask. */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000 40%, transparent 100%);
+/* Diagonal blueprint hatch — used on the header bar and decorative boxes. */
+.hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--hatch-line) 0,
+    var(--hatch-line) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+/* =========================================================================
+   Blueprint lines.
+   Each line is its own positioned element whose ::before is the visible hair-
+   line; it scales from 0 → 1 on load (fast, then easing to its final length).
+   `.bp-h` is horizontal (set top/left/width or right), `.bp-v` is vertical
+   (set left/top/height). Lines are placed in the gutters so they never cross
+   text. Origin can be flipped with `.from-right` / `.from-bottom`.
+   ========================================================================= */
+@keyframes line-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes line-grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.bp-h,
+.bp-v {
+  position: absolute;
+  pointer-events: none;
+}
+.bp-h { height: 1px; }
+.bp-v { width: 1px; }
+
+.bp-h::before,
+.bp-v::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+}
+.bp-h::before {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: line-grow-x var(--line-dur) var(--ease-line) both;
+}
+.bp-v::before {
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: line-grow-y var(--line-dur) var(--ease-line) both;
+}
+.bp-h.from-right::before { transform-origin: right; }
+.bp-v.from-bottom::before { transform-origin: bottom; }
+
+/* Draw-in stagger. */
+.dl-0::before, .dl-0::after { animation-delay: 0.05s; }
+.dl-1::before, .dl-1::after { animation-delay: 0.2s; }
+.dl-2::before, .dl-2::after { animation-delay: 0.38s; }
+.dl-3::before, .dl-3::after { animation-delay: 0.56s; }
+.dl-4::before, .dl-4::after { animation-delay: 0.74s; }
+
+/* 2×2 social grid: container draws its top + left edges, each cell the right +
+   bottom — together every divider, all animated like the rest of the lines. */
+.cell-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: line-grow-x var(--line-dur) var(--ease-line) both;
+  animation-delay: 0.5s;
+}
+.cell-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: line-grow-y var(--line-dur) var(--ease-line) both;
+  animation-delay: 0.5s;
+}
+.cell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: line-grow-y var(--line-dur) var(--ease-line) both;
+  animation-delay: 0.62s;
+}
+.cell::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: line-grow-x var(--line-dur) var(--ease-line) both;
+  animation-delay: 0.62s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-h::before,
+  .bp-v::before,
+  .cell-grid::before,
+  .cell-grid::after,
+  .cell::before,
+  .cell::after {
+    animation: none;
+    transform: none;
+  }
 }

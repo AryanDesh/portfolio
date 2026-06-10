@@ -1,0 +1,22 @@
+/* Consistent section header: a monospace eyebrow, a title, and optional copy. */
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+}) {
+  return (
+    <div className="max-w-2xl">
+      <p className="font-mono text-sm text-accent">{eyebrow}</p>
+      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+        {title}
+      </h2>
+      {description ? (
+        <p className="mt-4 text-base leading-7 text-muted">{description}</p>
+      ) : null}
+    </div>
+  );
+}

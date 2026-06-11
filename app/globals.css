@@ -18,10 +18,13 @@
   --muted: #52525b; /* zinc-600 — secondary text */
   --subtle: #71717a; /* zinc-500 — tertiary text */
   --accent: #d6411c; /* deep orange (readable on white) */
-  --hatch-line: rgba(0, 0, 0, 0.05);
+  --hatch-line: rgba(0, 0, 0, 0.1);
   /* Strong ease-out: lines extend fast, then decelerate to final length. */
   --ease-line: cubic-bezier(0.16, 1, 0.3, 1);
   --line-dur: 1.6s;
+  /* Hatch: moderate ease-in, long ease-out. */
+  --ease-hatch: cubic-bezier(0.45, 0, 0.15, 1);
+  --hatch-dur: 1.6s;
 }
 
 .dark {
@@ -32,7 +35,7 @@
   --muted: #a1a1aa; /* zinc-400 */
   --subtle: #71717a; /* zinc-500 */
   --accent: #f1512e; /* vivid orange-red */
-  --hatch-line: rgba(255, 255, 255, 0.05);
+  --hatch-line: rgba(255, 255, 255, 0.2);
 }
 
 @theme inline {
@@ -75,7 +78,16 @@ body {
 }
 
 /* Diagonal blueprint hatch — used on the header bar and decorative boxes. */
-.hatch {
+@keyframes hatch-reveal {
+  from { clip-path: inset(0 100% 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.hatch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image: repeating-linear-gradient(
     45deg,
     var(--hatch-line) 0,
@@ -83,7 +95,15 @@ body {
     transparent 1px,
     transparent 8px
   );
+  clip-path: inset(0 100% 100% 0);
+  animation: hatch-reveal var(--hatch-dur) var(--ease-hatch) both;
 }
+
+/* Hatch draw-in stagger (optional on `.hatch` elements). */
+.dh-0::before { animation-delay: 0.05s; }
+.dh-1::before { animation-delay: 0.2s; }
+.dh-2::before { animation-delay: 0.38s; }
+.dh-3::before { animation-delay: 0.56s; }
 
 /* =========================================================================
    Blueprint lines.
@@ -139,58 +159,6 @@ body {
 
 /* 2×2 social grid: container draws its top + left edges, each cell the right +
    bottom — together every divider, all animated like the rest of the lines. */
-.cell-grid::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--border);
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: line-grow-x var(--line-dur) var(--ease-line) both;
-  animation-delay: 0.5s;
-}
-.cell-grid::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--border);
-  transform: scaleY(0);
-  transform-origin: top;
-  animation: line-grow-y var(--line-dur) var(--ease-line) both;
-  animation-delay: 0.5s;
-}
-.cell::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--border);
-  transform: scaleY(0);
-  transform-origin: top;
-  animation: line-grow-y var(--line-dur) var(--ease-line) both;
-  animation-delay: 0.62s;
-}
-.cell::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: var(--border);
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: line-grow-x var(--line-dur) var(--ease-line) both;
-  animation-delay: 0.62s;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .bp-h::before,
@@ -198,8 +166,10 @@ body {
   .cell-grid::before,
   .cell-grid::after,
   .cell::before,
-  .cell::after {
+  .cell::after,
+  .hatch::before {
     animation: none;
     transform: none;
+    clip-path: none;
   }
 }

@@ -18,20 +18,18 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="hatch sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+    <header className="hatch sticky top-0 z-50 border-b-2 border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[1760px] items-start justify-between gap-6 px-8 py-3">
         {/* Left: availability */}
         <div className="leading-tight">
-          <p className="text-[11px] text-subtle">Availability</p>
-          <p className="font-mono text-[11px] uppercase tracking-wide text-foreground sm:text-xs">
+          <p className="text-[16px] text-subtle">Availability</p>
+          <p className="font-mono text-[24px] uppercase tracking-wide text-foreground sm:text-xs">
             {profile.availabilityLabel}
           </p>
         </div>
 
-        {/* Right: sitemap + theme */}
         <div className="text-right leading-tight">
-          <p className="text-[11px] text-subtle">Sitemap</p>
-          <nav className="mt-0.5 flex flex-wrap items-center justify-end gap-x-1.5 font-mono text-[11px] uppercase tracking-wide sm:text-xs">
+          <nav className="mt-4 flex flex-wrap items-center justify-end gap-x-1.5 font-mono text-[11px] uppercase tracking-wide sm:text-xs">
             {links.map((link) => {
               const active =
                 link.href === "/"

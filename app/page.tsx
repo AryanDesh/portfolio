@@ -13,15 +13,15 @@ const socialCells = [
   social("Email"),
 ];
 
-function SocialCells() {
+function SocialCells({ fluid = false }: { fluid?: boolean }) {
   return (
-    <div className="cell-grid relative grid w-max grid-cols-2">
+    <div className={`cell-grid relative grid grid-cols-2 p-0.5 pl-2 ${fluid ? "w-full" : "w-max"}`}>
       {socialCells.map((cell, index) => {
         const Icon = cell ? socialIcons[cell.label] : null;
         return (
           <div
             key={cell?.label ?? `empty-${index}`}
-            className="cell hatch relative flex h-[68px] w-[100px] items-center justify-center"
+            className={`cell relative flex h-[68px] items-center justify-center ${fluid ? "" : "w-[100px]"} ${cell?.label ? 'hatch': ''}`}
           >
             {cell && Icon ? (
               <a
@@ -51,25 +51,10 @@ export default function Home() {
 
       <main className="relative min-h-0 flex-1 overflow-hidden">
         {/* ===================== Desktop blueprint (md+) ===================== */}
-        <section className="relative hidden h-full md:block">
-          {/* Bottom corner hatch frames (full-bleed) */}
+        <section className="pl-12 pr-8 relative hidden h-full md:block">
           <div
             aria-hidden
-            className="hatch pointer-events-none absolute bottom-0 left-0 h-[7%] w-[12%]"
-          />
-          <span
-            aria-hidden
-            className="bp-h dl-4"
-            style={{ bottom: "7%", left: 0, width: "12%" }}
-          />
-          <div
-            aria-hidden
-            className="hatch pointer-events-none absolute bottom-0 right-0 h-[7%] w-[12%]"
-          />
-          <span
-            aria-hidden
-            className="bp-h from-right dl-4"
-            style={{ bottom: "7%", right: 0, width: "12%" }}
+            className="hatch pointer-events-none absolute bottom-0 left-0 h-[7%] w-[90%]"
           />
 
           {/* Shared coordinate space: lines + content both sit in this box, so
@@ -78,17 +63,22 @@ export default function Home() {
             {/* ---- Blueprint lines (gutters only — never under text) ---- */}
             <div aria-hidden className="pointer-events-none absolute inset-0">
               {/* Horizontals */}
-              <span className="bp-h dl-0" style={{ top: "9%", left: 0, right: 0 }} />
-              <span className="bp-h dl-1" style={{ top: "35%", left: 0, right: 0 }} />
-              <span className="bp-h dl-2" style={{ top: "42%", left: 0, width: "77%" }} />
+              <span className="bp-h dl-0" style={{ top: "9%", left: 0, right: 0 , height: "2px"}} />
+              <span className="bp-h dl-1" style={{ top: "35%", left: 0, right: 0, height: "2px"}} />
+              <span className="bp-h dl-2" style={{ top: "42%", left: "8%", width: "80%", height: "2px"}} />
               {/* Social-compartment top edge */}
-              <span className="bp-h dl-3" style={{ top: "66%", left: 0, width: "16.5%" }} />
+              <span className="bp-h dl-3" style={{ top: "65.8%", left: 0, width: "28.5%", height: "2px"}} />
+              <span className="bp-h dl-3" style={{ top: "74.5%", left: 0, width: "18%", height: "2px"}} />
+              <span className="bp-h dl-2" style={{ top: "83.3%", left: "8%", width: "88%", height: "2px"}} />
 
+              <span className="bp-v dl-0" style={{ left: "9%", top: "64%", height: "21%", width: "2px" }} />
               {/* Vertical V1 — broken around the name (stub above, body below) */}
-              <span className="bp-v dl-0" style={{ left: "16.5%", top: 0, height: "9%" }} />
-              <span className="bp-v dl-2" style={{ left: "16.5%", top: "35%", height: "55%" }} />
+              <span className="bp-v dl-0" style={{ left: "18%", top: 0, height: "9%", width: "2px" }} />
+              <span className="bp-v dl-2" style={{ left: "18%", top: "35%", height: "50%", width: "2px" }} />
               {/* Vertical V2 — stops above the paragraph */}
-              <span className="bp-v dl-1" style={{ left: "77%", top: 0, height: "45%" }} />
+              <span className="bp-v dl-1" style={{ left: "77%", top: 0, height: "45%", width: "2px" }} />
+              <span className="bp-v dl-3" style={{ left: "18%", bottom: 0, height: "10.5%", width: "2px" }} />
+              <span className="bp-v dl-3" style={{ left: "77%", bottom: 0, height: "10.5%", width: "2px" }} />
             </div>
 
             {/* ---- Content (placed inside the compartments) ---- */}
@@ -101,13 +91,13 @@ export default function Home() {
 
             {/* Role + see-my-work, sitting in the band between the verticals */}
             <div
-              className="absolute flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.15em] text-subtle sm:text-sm"
-              style={{ top: "37%", left: "18%", right: "23%" }}
+              className="absolute flex items-center justify-between gap-4 font-sans font-light text-md uppercase tracking-[0.15em] text-foreground sm:text-md"
+              style={{ top: "37%", left: "21%", right: "26%" }}
             >
-              <span>{profile.role}</span>
+              <span className="text-accent">{profile.role}</span>
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-blue-200"
               >
                 See my work
                 <ArrowUpRightIcon className="h-4 w-4" />
@@ -117,7 +107,7 @@ export default function Home() {
             {/* Paragraph, floating in the open lower-right compartment */}
             <p
               className="absolute text-2xl leading-snug text-muted lg:text-3xl"
-              style={{ top: "52%", left: "34%", right: "13%" }}
+              style={{ top: "55%", left: "34%", right: "13%" }}
             >
               {lead}
               <span className="text-accent">{highlight}</span>
@@ -125,8 +115,11 @@ export default function Home() {
             </p>
 
             {/* Social cluster, lower-left (right edge meets V1) */}
-            <div className="absolute left-8" style={{ top: "66%" }}>
-              <SocialCells />
+            <div
+              className="absolute left-[-6px]"
+              style={{ top: "66%", width: "calc(18.5%)" }}
+            >
+              <SocialCells fluid />
             </div>
 
             {/* Résumé, just right of V1 */}
@@ -134,8 +127,8 @@ export default function Home() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute font-mono text-xs uppercase tracking-[0.15em] text-subtle transition-colors hover:text-accent"
-              style={{ top: "89%", left: "18%" }}
+              className="absolute font-mono text-md uppercase tracking-[0.15em] text-subtle transition-colors hover:text-accent"
+              style={{ top: "88.7%", left: "19%" }}
             >
               Resume / CV ↗
             </a>
@@ -148,7 +141,7 @@ export default function Home() {
             <h1 className="font-serif text-5xl font-normal leading-[0.95] tracking-tight text-foreground">
               {profile.name}
             </h1>
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.15em] text-subtle">
+            <p className="font-mono text-[22px] uppercase tracking-[0.15em] text-subtle">
               {profile.role}
             </p>
           </div>

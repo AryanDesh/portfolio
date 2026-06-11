@@ -64,8 +64,8 @@ export const profile = {
   // The hero sentence is split so the first clause can render in the accent color.
   heroIntro: {
     lead: "I build ",
-    highlight: "production-grade backend systems and developer tooling,",
-    rest: " engineered for real-world scale — with strong systems logic and carefully crafted interfaces.",
+    highlight: "production-grade systems and developer tooling,",
+    rest: " engineered for real-world scale.",
   },
   summary: [
     "I'm a Software Development Engineer at Maxim AI, where I build scalable backend systems for LLM observability — parsing SQL across ClickHouse, PostgreSQL and MySQL, streaming synthetic-data pipelines, and designing distributed simulation architectures. I care about clean architecture, performance under real production constraints, and tools that make complex systems understandable.",

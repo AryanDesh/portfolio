@@ -46,6 +46,13 @@ export type Education = {
   degree: string;
   period: string;
   detail: string;
+  description: string;
+};
+
+/** A single skill chip for the "What I use" marquee. `icon` maps to a logo. */
+export type Tech = {
+  name: string;
+  icon?: string;
 };
 
 export type Stat = {
@@ -127,6 +134,36 @@ export const skills: Skill[] = [
     category: "DevOps",
     items: ["Docker", "Kubernetes", "CI/CD (GitHub Actions)", "Cloud Computing"],
   },
+];
+
+// Flat stack for the "What I use" marquee. Ordered so the few that carry a
+// brand logo are spread across the three rows; the rest render as text chips.
+export const techStack: Tech[] = [
+  { name: "TypeScript", icon: "typescript" },
+  { name: "Python" },
+  { name: "Tailwind CSS", icon: "tailwind" },
+  { name: "NestJS" },
+  { name: "PostgreSQL" },
+  { name: "Redis" },
+  { name: "Docker" },
+  { name: "Kubernetes" },
+  { name: "React", icon: "react" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "Express.js" },
+  { name: "REST APIs" },
+  { name: "MySQL" },
+  { name: "ClickHouse" },
+  { name: "CI/CD" },
+  { name: "Cloud Computing" },
+  { name: "Next.js", icon: "nextjs" },
+  { name: "Node.js", icon: "nodejs" },
+  { name: "Redux" },
+  { name: "SQL" },
+  { name: "Microservices" },
+  { name: "Firestore" },
+  { name: "Prisma" },
+  { name: "Drizzle" },
+  { name: "GitHub Actions" },
 ];
 
 export const experiences: Experience[] = [
@@ -270,6 +307,8 @@ export const education: Education[] = [
     school: "Vishwakarma Institute of Technology",
     degree: "Bachelor of Technology",
     period: "2021 — 2025",
-    detail: "CGPA: 8.55",
+    detail: "CGPA 8.55",
+    description:
+      "Studied core computer science — data structures, algorithms, databases, operating systems, networks, and distributed systems — while building full-stack and backend projects end to end and competing in hackathons.",
   },
 ];

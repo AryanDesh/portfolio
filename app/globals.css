@@ -173,3 +173,57 @@ body {
     clip-path: none;
   }
 }
+
+/* =========================================================================
+   Skill marquee — multi-row, two-way infinite scroll.
+   Each row renders its chips twice; translating by one copy width (-50%) loops
+   seamlessly. Odd rows reverse direction (left→right). The wrapper masks both
+   ends so chips dissolve at the edges.
+   ========================================================================= */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-row {
+  width: max-content;
+  animation: marquee-x var(--marquee-dur, 40s) linear infinite;
+}
+.marquee-row-reverse {
+  animation-direction: reverse;
+}
+.marquee-row:hover {
+  animation-play-state: paused;
+}
+/* Solid at the outer edges (vertical blueprint lines sit there); fade only
+   inward so scrolling chips dissolve without blurring the frame lines. */
+.skill-marquee {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 5%,
+    transparent 12%,
+    #000 12%,
+    #000 88%,
+    transparent 95%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 5%,
+    transparent 12%,
+    #000 12%,
+    #000 88%,
+    transparent 95%,
+    #000 100%
+  );
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row {
+    animation: none;
+  }
+}

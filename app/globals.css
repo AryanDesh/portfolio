@@ -198,28 +198,24 @@ body {
 .marquee-row:hover {
   animation-play-state: paused;
 }
-/* Solid at the outer edges (vertical blueprint lines sit there); fade only
-   inward so scrolling chips dissolve without blurring the frame lines. */
+/* Edge dissolve: the mask's alpha = chip visibility. Invisible at the very
+   edges (transparent), fading to fully visible (#000, i.e. opaque) by 10% in,
+   solid through the middle, then fading back out 90% → 100%. Stops must be in
+   increasing order — an out-of-order stop gets clamped and becomes a hard cut. */
 .skill-marquee {
   -webkit-mask-image: linear-gradient(
     to right,
-    #000 0%,
-    #000 5%,
-    transparent 12%,
-    #000 12%,
-    #000 88%,
-    transparent 95%,
-    #000 100%
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
   );
   mask-image: linear-gradient(
     to right,
-    #000 0%,
-    #000 5%,
-    transparent 12%,
-    #000 12%,
-    #000 88%,
-    transparent 95%,
-    #000 100%
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
   );
 }
 @media (prefers-reduced-motion: reduce) {

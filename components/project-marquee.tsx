@@ -27,6 +27,9 @@ export function ProjectMarquee({
   const copyWidth = useRef(0);
   const momentum = useRef(0); // px/s, added on top of auto-scroll, decays away
   const dragging = useRef(false);
+  // Set when a drag happens so the click that fires on release doesn't
+  // activate links (e.g. a card's GitHub icon). Reset on the next pointerdown.
+  const suppressClick = useRef(false);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -84,6 +87,7 @@ export function ProjectMarquee({
     const onDown = (e: PointerEvent) => {
       pending = true;
       dragging.current = false;
+      suppressClick.current = false;
       startX = lastX = e.clientX;
       startY = e.clientY;
       lastT = performance.now();
@@ -103,6 +107,7 @@ export function ProjectMarquee({
         }
         // horizontal intent → start dragging
         dragging.current = true;
+        suppressClick.current = true;
         pending = false;
         lastX = e.clientX;
         lastT = performance.now();
@@ -150,6 +155,12 @@ export function ProjectMarquee({
   return (
     <div
       ref={viewportRef}
+      onClickCapture={(e) => {
+        if (suppressClick.current) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }}
       className="relative w-full cursor-grab touch-pan-y select-none overflow-hidden border-b border-border py-12 active:cursor-grabbing sm:py-16"
     >
       {/* Edge fades so cards dissolve into the background at both ends */}

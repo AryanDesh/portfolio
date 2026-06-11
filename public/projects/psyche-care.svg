@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1b1610"/>
+      <stop offset="1" stop-color="#2a2015"/>
+    </linearGradient>
+    <pattern id="h" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="16" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#g)"/>
+  <rect width="800" height="500" fill="url(#h)"/>
+  <text x="48" y="86" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" letter-spacing="5" fill="#ffffff" fill-opacity="0.42">06 · PLACEHOLDER</text>
+  <text x="44" y="432" font-family="Georgia, 'Times New Roman', serif" font-size="64" fill="#ffffff" fill-opacity="0.92">Psyche-Care</text>
+  <circle cx="748" cy="68" r="7" fill="#f1512e"/>
+</svg>

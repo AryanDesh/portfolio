@@ -124,7 +124,7 @@ export default function Home() {
 
             {/* Résumé, just right of V1 */}
             <a
-              href="/resume.pdf"
+              href="/Aryan_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute font-mono text-md uppercase tracking-[0.15em] text-subtle transition-colors hover:text-accent"
@@ -163,7 +163,7 @@ export default function Home() {
               <ArrowUpRightIcon className="h-4 w-4" />
             </Link>
             <a
-              href="/resume.pdf"
+              href="/Aryan_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-accent"

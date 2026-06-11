@@ -13,10 +13,6 @@ export type Social = {
   handle: string;
 };
 
-export type Skill = {
-  category: string;
-  items: string[];
-};
 
 export type Experience = {
   role: string;
@@ -55,10 +51,6 @@ export type Tech = {
   icon?: string;
 };
 
-export type Stat = {
-  value: string;
-  label: string;
-};
 
 export const profile = {
   name: "Aryan Deshmukh",
@@ -77,8 +69,9 @@ export const profile = {
     rest: " engineered for real-world scale.",
   },
   summary: [
-    "I'm a Software Development Engineer at Maxim AI, where I build scalable backend systems for LLM observability — parsing SQL across ClickHouse, PostgreSQL and MySQL, streaming synthetic-data pipelines, and designing distributed simulation architectures. I care about clean architecture, performance under real production constraints, and tools that make complex systems understandable.",
-    "Previously I built NestJS property-management backends deployed for government use. I enjoy working across the stack — from Redis-backed real-time systems to large React state architectures — and I'm happiest turning a gnarly, ambiguous problem into something simple and reliable.",
+    "Software engineer who likes the part of the stack where things get messy. Currently at Maxim AI, where I build infrastructure for LLM observability, hadnling multiple DBs ClickHouse, Postgres (pgvector), and MySQL, designing async data-generation pipelines on GCP Pub/Sub with SSE streaming and WebSocket progress and architecting end-to-end simulation systems.",
+    "I spent four years at VIT writing more side projects than was probably advisable a multi-tenant SaaS builder, an HLS music streaming platform, a WebRTC chat app, etc.",
+    "I care about systems that scale gracefully, code that the next person can read, and shipping things that real users touch",
   ],
 };
 
@@ -86,13 +79,13 @@ export const profile = {
 export const socials: Social[] = [
   {
     label: "GitHub",
-    href: "https://github.com/aryandeshmukh",
-    handle: "@aryandeshmukh",
+    href: "https://github.com/AryanDesh",
+    handle: "@AryanDesh",
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/aryan-deshmukh",
-    handle: "in/aryan-deshmukh",
+    href: "https://www.linkedin.com/in/aryandeshmukh-profile/",
+    handle: "in/aryandeshmukh",
   },
   {
     label: "Email",
@@ -101,69 +94,35 @@ export const socials: Social[] = [
   },
 ];
 
-export const stats: Stat[] = [
-  { value: "Millions", label: "LLM trace logs parsed" },
-  { value: "3", label: "Production databases orchestrated" },
-  { value: "17+", label: "Query state variables unified" },
-  { value: "8.55", label: "CGPA" },
-];
-
-export const skills: Skill[] = [
-  { category: "Languages", items: ["TypeScript", "Python", "SQL"] },
-  {
-    category: "Backend",
-    items: ["Node.js", "NestJS", "Express.js", "REST APIs", "Microservices"],
-  },
-  {
-    category: "Frontend",
-    items: ["React.js", "Next.js", "Redux", "Tailwind CSS"],
-  },
-  {
-    category: "Databases",
-    items: [
-      "PostgreSQL",
-      "MySQL",
-      "ClickHouse",
-      "Firestore",
-      "Redis",
-      "Prisma",
-      "Drizzle",
-    ],
-  },
-  {
-    category: "DevOps",
-    items: ["Docker", "Kubernetes", "CI/CD (GitHub Actions)", "Cloud Computing"],
-  },
-];
-
 // Flat stack for the "What I use" marquee. Ordered so the few that carry a
 // brand logo are spread across the three rows; the rest render as text chips.
 export const techStack: Tech[] = [
   { name: "TypeScript", icon: "typescript" },
-  { name: "Python" },
+  { name: "Python", icon: "python" },
+  { name: "Go", icon: "go" },
   { name: "Tailwind CSS", icon: "tailwind" },
-  { name: "NestJS" },
-  { name: "PostgreSQL" },
-  { name: "Redis" },
-  { name: "Docker" },
-  { name: "Kubernetes" },
+  { name: "NestJS", icon: "nestjs" },
+  { name: "PostgreSQL", icon: "postgresql" },
+  { name: "Redis", icon: "redis" },
+  { name: "Docker", icon: "docker" },
+  { name: "Kubernetes", icon: "kubernetes" },
   { name: "React", icon: "react" },
   { name: "JavaScript", icon: "javascript" },
-  { name: "Express.js" },
-  { name: "REST APIs" },
-  { name: "MySQL" },
-  { name: "ClickHouse" },
-  { name: "CI/CD" },
-  { name: "Cloud Computing" },
+  { name: "Express.js", icon: "express" },
+  { name: "REST APIs", icon: "restapi" },
+  { name: "MySQL", icon: "mysql" },
+  { name: "ClickHouse", icon: "clickhouse" },
+  { name: "CI/CD", icon: "cicd" },
+  { name: "Cloud Computing", icon: "cloud" },
   { name: "Next.js", icon: "nextjs" },
   { name: "Node.js", icon: "nodejs" },
-  { name: "Redux" },
-  { name: "SQL" },
-  { name: "Microservices" },
-  { name: "Firestore" },
-  { name: "Prisma" },
-  { name: "Drizzle" },
-  { name: "GitHub Actions" },
+  { name: "Redux", icon: "redux" },
+  { name: "SQL", icon: "sql" },
+  { name: "Microservices", icon: "microservices" },
+  { name: "Firestore", icon: "firestore" },
+  { name: "Prisma", icon: "prisma" },
+  { name: "Drizzle", icon: "drizzle" },
+  { name: "GitHub Actions", icon: "githubactions" },
 ];
 
 export const experiences: Experience[] = [
@@ -178,13 +137,14 @@ export const experiences: Experience[] = [
     highlights: [
       "Built a highly scalable system that parses and manipulates SQL across three production databases — ClickHouse (millions of LLM trace logs), PostgreSQL with pgvector (semantic clustering & embeddings), and MySQL (evaluation metrics) — filtering across millions of logs under tight memory constraints on a Node.js backend.",
       "Designed an asynchronous synthetic-data generation pipeline integrating the frontend, GCP Pub/Sub and a streaming service; LLM-generated rows stream via SSE and persist incrementally to MySQL through background workers to prevent data loss, with real-time progress over WebSockets, job polling via RTK Query, and resilient orchestration.",
-      "Designed and implemented the end-to-end simulation architecture, from SDK experiment definitions to distributed execution pipelines.",
+      "Designed and implemented the end-to-end simulation architecture, from the SDK to Go worker microservices.",
       "Developed multiple AI demo agents with integrated observability — code generation, transcript scribing, document parsing, and NL2SQL systems.",
       "Re-architected log-repository state management handling 17+ query state variables, replacing a Redux + localStorage + URL multi-source system with a single URL-driven model — eliminating race conditions and enabling shareable views.",
       "Contributed to platform UX including onboarding flows, samples integration, and dataset creation.",
     ],
     stack: [
       "Node.js",
+      "Go",
       "ClickHouse",
       "PostgreSQL",
       "pgvector",
@@ -214,6 +174,20 @@ export const experiences: Experience[] = [
 
 export const projects: Project[] = [
   {
+    name: "Mnemo",
+    tagline: "AI Agents Platform",
+    period: "2026",
+    image: "/projects/mnemo.svg",
+    blurb:
+      "An AI agents platform where agents are persistent entities with memory, personality, and tools — reachable from chat apps and the web.",
+    highlights: [
+      "Contributed in building an AI agent platform where agents are persistent entities — each with memory, personality, model config, tools, and budget controls.",
+      "Integrated across Discord, WhatsApp, Slack, and web with shared memory and channel-isolated threads.",
+      "Built with Bifrost for governance, observability, and provider routing.",
+    ],
+    stack: ["Go", "Next.js", "SQL", "Bifrost"],
+  },
+  {
     name: "Web-Craft",
     tagline: "Multi-Tenant SaaS Website Builder",
     period: "2024",
@@ -227,6 +201,7 @@ export const projects: Project[] = [
       "Designed customizable templates and drag-and-drop UI components for dynamic product creation.",
     ],
     stack: ["Next.js", "PostgreSQL", "Razorpay", "Clerk"],
+    href: "https://github.com/AryanDesh/WebCraft-nextapp",
   },
   {
     name: "RT-Chat",
@@ -242,6 +217,7 @@ export const projects: Project[] = [
       "Added automated tests for reliable connection handling and message delivery across multiple peers.",
     ],
     stack: ["WebRTC", "Node.js", "Redis"],
+    href: "https://github.com/AryanDesh/video-chat-solid",
   },
   {
     name: "Tone-Deaf",
@@ -257,49 +233,40 @@ export const projects: Project[] = [
       "Created unit tests with Vitest to ensure stability and reliability.",
     ],
     stack: ["Node.js", "WebSockets", "Redis", "HLS"],
+    href: "https://github.com/AryanDesh/Tone-Deaf",
   },
   {
-    name: "Quanta",
-    tagline: "Real-Time Analytics Engine",
+    name: "Ink & Insight",
+    tagline: "Real-Time Collaborative Blogging Platform",
+    period: "2024 — 2025",
+    image: "/projects/ink-insight.svg",
+    blurb:
+      "A collaborative writing platform where authors co-edit rich block-based posts in real time.",
+    highlights: [
+      "Built an Express + TypeScript backend on Prisma/PostgreSQL with JWT auth, bcrypt-hashed credentials, Zod validation, and per-route rate limiting.",
+      "Implemented live co-editing with Socket.IO rooms syncing an Editor.js block editor (headers, code, tables, embeds) across collaborators.",
+      "Used Prisma Accelerate for connection pooling and query caching, with scheduled background jobs via node-schedule.",
+      "Built the React + Vite frontend with Recoil state management and sanitized Markdown rendering.",
+    ],
+    stack: ["TypeScript", "Express", "Prisma", "PostgreSQL", "Socket.IO", "React"],
+    href: "https://github.com/AryanDesh/Ink-Insight",
+  },
+  {
+    name: "Psyche-Care",
+    tagline: "AI Therapy Companion",
     period: "2023",
-    image: "/projects/quanta.svg",
+    image: "/projects/psyche-care.svg",
     blurb:
-      "A real-time analytics dashboard that streams millions of events with sub-second query latency.",
+      "An AI therapist web app offering guided, private therapy-style chat sessions.",
     highlights: [
-      "Built a streaming ingestion pipeline handling millions of events with ClickHouse for sub-second aggregations.",
-      "Streamed live metrics to the browser over WebSockets with backpressure-aware batching.",
-      "Designed a query layer with materialized rollups and Redis caching for instant dashboard loads.",
+      "Built on Next.js 13 with the App Router, with a dedicated start-session flow for therapy conversations.",
+      "Implemented authentication with NextAuth and bcrypt-hashed credentials backed by user models in MongoDB.",
+      "Persisted users and session data with Mongoose against a MongoDB sessions database.",
+      "Styled a clean, calming interface with Tailwind CSS.",
     ],
-    stack: ["Next.js", "ClickHouse", "WebSockets", "Redis"],
-  },
-  {
-    name: "PaperTrail",
-    tagline: "Document Intelligence Pipeline",
-    period: "2022",
-    image: "/projects/papertrail.svg",
-    blurb:
-      "An OCR + LLM pipeline that turns messy documents into structured, searchable data.",
-    highlights: [
-      "Built an asynchronous OCR and parsing pipeline with FastAPI workers behind a queue for high-throughput ingestion.",
-      "Generated vector embeddings stored in PostgreSQL/pgvector to power semantic search across documents.",
-      "Exposed a typed REST API with auto-generated OpenAPI docs for downstream consumers.",
-    ],
-    stack: ["Python", "FastAPI", "PostgreSQL", "pgvector"],
-  },
-  {
-    name: "Loophole",
-    tagline: "Secure Localhost Tunneling",
-    period: "2021",
-    image: "/projects/loophole.svg",
-    blurb:
-      "A self-hosted tunneling service that exposes local servers over secure public URLs.",
-    highlights: [
-      "Built a reverse-tunnel server that multiplexes many local services over a single persistent WebSocket connection.",
-      "Issued on-demand subdomains with automatic TLS termination at the edge.",
-      "Added request inspection and replay to make debugging webhooks locally painless.",
-    ],
-    stack: ["Node.js", "WebSockets", "TLS", "Docker"],
-  },
+    stack: ["Next.js", "NextAuth", "MongoDB", "Mongoose", "Tailwind CSS"],
+    href: "https://github.com/AryanDesh/psyche-care",
+  }
 ];
 
 export const education: Education[] = [
@@ -309,6 +276,6 @@ export const education: Education[] = [
     period: "2021 — 2025",
     detail: "CGPA 8.55",
     description:
-      "Studied core computer science — data structures, algorithms, databases, operating systems, networks, and distributed systems — while building full-stack and backend projects end to end and competing in hackathons.",
+      "Four years of Engineering, a healthy obsession with side projects, and an unhealthy number of half-finished repos on GitHub.",
   },
 ];

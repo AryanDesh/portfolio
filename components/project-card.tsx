@@ -1,5 +1,6 @@
 import type { Project } from "@/lib/data";
 import { TechTag } from "@/components/tech-tag";
+import { GitHubIcon } from "@/components/icons";
 
 /**
  * Compact project card with a preview image on top — sized for the projects
@@ -19,6 +20,18 @@ export function ProjectCard({ project }: { project: Project }) {
         <span className="absolute left-3 top-3 rounded-full border border-border bg-background/70 px-2 py-0.5 font-mono text-[11px] text-subtle backdrop-blur">
           {project.period}
         </span>
+        {project.href ? (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.name} on GitHub`}
+            title="View on GitHub"
+            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/70 text-foreground backdrop-blur transition-colors hover:border-accent hover:text-accent"
+          >
+            <GitHubIcon className="h-4 w-4" />
+          </a>
+        ) : null}
       </div>
 
       {/* Content */}

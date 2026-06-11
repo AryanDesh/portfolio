@@ -40,7 +40,6 @@ export function ThemeToggle() {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
     >
-      THEME
       <span aria-hidden className="inline-flex h-3.5 w-3.5 items-center justify-center">
         {/* Empty until mounted so SSR and first client render match. */}
         {theme === null ? null : isDark ? (

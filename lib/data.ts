@@ -33,6 +33,8 @@ export type Project = {
   name: string;
   tagline: string;
   period: string;
+  /** Card preview image, served from /public (placeholder SVGs for now). */
+  image: string;
   blurb: string;
   highlights: string[];
   stack: string[];
@@ -178,6 +180,7 @@ export const projects: Project[] = [
     name: "Web-Craft",
     tagline: "Multi-Tenant SaaS Website Builder",
     period: "2024",
+    image: "/projects/web-craft.svg",
     blurb:
       "A multi-tenant SaaS platform that lets users build and launch sites from customizable templates.",
     highlights: [
@@ -192,6 +195,7 @@ export const projects: Project[] = [
     name: "RT-Chat",
     tagline: "Real-Time Chat Platform",
     period: "2024",
+    image: "/projects/rt-chat.svg",
     blurb:
       "A peer-to-peer real-time chat platform with presence tracking and reliable message delivery.",
     highlights: [
@@ -206,6 +210,7 @@ export const projects: Project[] = [
     name: "Tone-Deaf",
     tagline: "Music Streaming Platform",
     period: "2025",
+    image: "/projects/tone-deaf.svg",
     blurb:
       "An HLS-based audio streaming service with personalized playlists and shared listening rooms.",
     highlights: [
@@ -215,6 +220,48 @@ export const projects: Project[] = [
       "Created unit tests with Vitest to ensure stability and reliability.",
     ],
     stack: ["Node.js", "WebSockets", "Redis", "HLS"],
+  },
+  {
+    name: "Quanta",
+    tagline: "Real-Time Analytics Engine",
+    period: "2023",
+    image: "/projects/quanta.svg",
+    blurb:
+      "A real-time analytics dashboard that streams millions of events with sub-second query latency.",
+    highlights: [
+      "Built a streaming ingestion pipeline handling millions of events with ClickHouse for sub-second aggregations.",
+      "Streamed live metrics to the browser over WebSockets with backpressure-aware batching.",
+      "Designed a query layer with materialized rollups and Redis caching for instant dashboard loads.",
+    ],
+    stack: ["Next.js", "ClickHouse", "WebSockets", "Redis"],
+  },
+  {
+    name: "PaperTrail",
+    tagline: "Document Intelligence Pipeline",
+    period: "2022",
+    image: "/projects/papertrail.svg",
+    blurb:
+      "An OCR + LLM pipeline that turns messy documents into structured, searchable data.",
+    highlights: [
+      "Built an asynchronous OCR and parsing pipeline with FastAPI workers behind a queue for high-throughput ingestion.",
+      "Generated vector embeddings stored in PostgreSQL/pgvector to power semantic search across documents.",
+      "Exposed a typed REST API with auto-generated OpenAPI docs for downstream consumers.",
+    ],
+    stack: ["Python", "FastAPI", "PostgreSQL", "pgvector"],
+  },
+  {
+    name: "Loophole",
+    tagline: "Secure Localhost Tunneling",
+    period: "2021",
+    image: "/projects/loophole.svg",
+    blurb:
+      "A self-hosted tunneling service that exposes local servers over secure public URLs.",
+    highlights: [
+      "Built a reverse-tunnel server that multiplexes many local services over a single persistent WebSocket connection.",
+      "Issued on-demand subdomains with automatic TLS termination at the edge.",
+      "Added request inspection and replay to make debugging webhooks locally painless.",
+    ],
+    stack: ["Node.js", "WebSockets", "TLS", "Docker"],
   },
 ];
 

@@ -1,53 +1,45 @@
 import type { Project } from "@/lib/data";
 import { TechTag } from "@/components/tech-tag";
-import { ArrowUpRightIcon } from "@/components/icons";
 
+/**
+ * Compact project card with a preview image on top — sized for the projects
+ * marquee. Fixed width, fills the row height so cards line up.
+ */
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="group flex flex-col rounded-xl border border-border bg-surface p-6 transition-colors hover:border-subtle">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">
-            {project.name}
-          </h3>
-          <p className="text-sm text-accent">{project.tagline}</p>
-        </div>
-        <span className="shrink-0 font-mono text-xs text-subtle">
+    <article className="group/card flex h-full w-[300px] shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-subtle sm:w-[340px]">
+      {/* Preview image (placeholder for now) */}
+      <div className="relative aspect-16/10 w-full overflow-hidden">
+        <div
+          role="img"
+          aria-label={`${project.name} preview`}
+          className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover/card:scale-105"
+          style={{ backgroundImage: `url(${project.image})` }}
+        />
+        <span className="absolute left-3 top-3 rounded-full border border-border bg-background/70 px-2 py-0.5 font-mono text-[11px] text-subtle backdrop-blur">
           {project.period}
         </span>
       </div>
 
-      <p className="mt-4 text-sm leading-6 text-muted">{project.blurb}</p>
+      {/* Content */}
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div>
+          <h3 className="text-base font-semibold text-foreground">
+            {project.name}
+          </h3>
+          <p className="text-sm text-accent">{project.tagline}</p>
+        </div>
 
-      <ul className="mt-4 space-y-2">
-        {project.highlights.map((point) => (
-          <li key={point} className="flex gap-2.5 text-sm leading-6 text-muted">
-            <span
-              aria-hidden
-              className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
-            />
-            {point}
-          </li>
-        ))}
-      </ul>
+        <p className="line-clamp-2 text-sm leading-6 text-muted">
+          {project.blurb}
+        </p>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        {project.stack.map((tech) => (
-          <TechTag key={tech}>{tech}</TechTag>
-        ))}
+        <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+          {project.stack.slice(0, 4).map((tech) => (
+            <TechTag key={tech}>{tech}</TechTag>
+          ))}
+        </div>
       </div>
-
-      {project.href ? (
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-accent"
-        >
-          View project
-          <ArrowUpRightIcon className="h-4 w-4" />
-        </a>
-      ) : null}
     </article>
   );
 }

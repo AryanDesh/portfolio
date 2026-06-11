@@ -1,27 +1,27 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/data";
-import { SectionHeading } from "@/components/section-heading";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectMarquee } from "@/components/project-marquee";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "A selection of things I've designed and built.",
+  description: "A selection of things I've designed and built, 2021–2026.",
 };
 
 export default function ProjectsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
-      <SectionHeading
-        eyebrow="// projects"
-        title="Selected work"
-        description="Side projects and platforms I've built end to end — from real-time systems to multi-tenant SaaS."
-      />
+    <>
+      {/* ===== Draggable right-to-left infinite marquee ===== */}
+      <ProjectMarquee projects={projects} speed={120} />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
-        ))}
-      </div>
-    </div>
+      {/* ===== Highlighted heading ===== */}
+      <section className="max-w-[1760px] px-20 py-12 sm:py-16">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-subtle">
+          // my work
+        </p>
+        <h1 className="mt-5 font-serif text-5xl leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+          Projects from <span className="text-accent">2021&ndash;2026</span>
+        </h1>
+      </section>
+    </>
   );
 }

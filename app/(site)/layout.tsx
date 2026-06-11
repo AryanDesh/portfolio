@@ -1,9 +1,8 @@
 import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
 
-// Layout for the inner pages: nav at the top, page content, footer at the
-// bottom. The shell is viewport-locked; <main> scrolls for long pages.
-// /projects opts out via its own layout (single-screen, no scroll).
+// Layout for the inner pages: nav at the top, page content below. The shell is
+// viewport-locked; <main> scrolls for long pages. /projects opts out via its
+// own layout (single-screen, no scroll).
 export default function SiteLayout({
   children,
 }: {
